@@ -1,7 +1,7 @@
 const express = require('express');
-
 const router = express.Router();
 
+// require USER model
 const User = require('../models/user-model');
 
 // to encrypt the password we need to install and require BCRYPTJS (or BCRYPT)
@@ -14,7 +14,7 @@ router.get('/signup', (req, res, next) => {
   res.render('auth/signup');
 })
 
-// <form action="/signup" method="post">
+// <form action="/signup" method="post"> ==> the signup form submits on the '/signup' POST route
 router.post('/signup', (req, res, next) => {
   // console.log(req.body);
   const userEmail = req.body.email;
@@ -79,7 +79,8 @@ router.post('/login', (req, res, next) => {
         res.render('auth/login', { errorMessage: 'There is no user with provided email, so please create an account first! 🙌 ' });
         return;
       }
-      //  .compareSync() receives 2 arguments: the password user just inputed in the login form and the hashed passwrod that is saved in the DB
+      // .compareSync() receives 2 arguments: the password user just inputed in the login form 
+      // and the hashed passwrod that is saved in the DB
       if(bcrypt.compareSync( userLoginPassword, user.password )){
         // in req.session object create a new key (currentuser) and set it equal to the user we found based on the userLoginEmail
         // this will make  req.session.currentUser availabel througout the whole app
@@ -92,35 +93,29 @@ router.post('/login', (req, res, next) => {
 })
 
 
-// private page set up:
+// private page set up: ======> MIDDLEWARE ===> all the protected routes need to be after this point in the code 👀⚡️💫
 
 router.use((req, res, next) => {
-  if(req.session.currentUser){
+  if(req.session.currentUser){ // <== if the user is in the session go on whichever page you want if it's after this point
     next();
   } else {
-    res.redirect('/login');
+    res.redirect('/login'); // ==> if the user is not logged in, SORRY, login and come back PLEASE ❗️
   }
 })
 
 
+// the user will see this page only if they are logged in (they are in the session)
 router.get('/private', ( req, res, next ) => {
   res.render('user-pages/private-page', { user: req.session.currentUser })
 })
 
 
+// LOGOUT GET ROUTE
 router.get('/logout', (req, res, next) => {
   req.session.destroy( err => {
     console.log('Error while logging out: ', err);
     res.redirect('/login');
   } )
 })
-
-
-
-
-
-
-
-
 
 module.exports = router;

@@ -1,0 +1,17 @@
+<form action="/signup" method="post">
+
+  <label for="">Email:</label>
+  <input type="email" name="email" id="">
+
+  <label for="">Password:</label>
+  <input type="password" name="password" id="">
+
+  <button type="submit">Sign up</button>
+
+</form>
+<p>Already have account? <a href="/login"> Login  </a> </p>
+
+
+{{#if errorMessage}}
+  <h3 style="color: red;">  {{ errorMessage }} </h3>
+{{/if}}

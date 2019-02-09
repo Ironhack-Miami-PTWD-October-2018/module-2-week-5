@@ -1,0 +1,16 @@
+<h1>Create a new room</h1>
+
+{{!-- if in the form you want top upload any kind of files (images, music, ...) 
+you need to add enctype="multipart/form-data" --}}
+<form action='/create-room' method='POST' enctype='multipart/form-data'>
+  <label for="">Name</label>
+  <input type="text" name="name" id="">
+
+  <label for="">Description</label>
+  <textarea name="description" id="" cols="30" rows="10"></textarea>
+
+  <label for="">Upload image</label>
+  <input type="file" name="imageUrl" id="">
+
+  <button type="submit">Create room</button>
+</form>

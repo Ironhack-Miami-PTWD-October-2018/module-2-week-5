@@ -74,6 +74,6 @@ app.use('/', index);
 // require auth routs so the app knows they exist
 app.use('/', require('./routes/auth-routes'));
 app.use('/', require('./routes/user-routes'));
-
+app.use('/', require('./routes/room-routes'));
 
 module.exports = app;

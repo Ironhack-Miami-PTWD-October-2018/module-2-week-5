@@ -13,8 +13,12 @@ passport.use(new LocalStrategy({
     if(!userFromDb){
       return next(null, false, { message: 'Incorrect email!' })
     }
-    if(!bcrypt.compareSync(password, userFromDb.password)){
-      return next(null, false, { message: 'Incorrect password!' })
+    if(userFromDb.password){
+      if(!bcrypt.compareSync(password, userFromDb.password)){
+        return next(null, false, { message: 'Incorrect password!' })
+      }
+    } else {
+      return next(null, false, { message: 'This email is used for your social login.' })
     }
     return next(null, userFromDb)
   })

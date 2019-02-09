@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 const passport = require('passport');
-
-
 const User = require('../models/user-model');
 
 const bcrypt = require('bcryptjs');
@@ -89,7 +87,19 @@ router.get('/slack/callback', passport.authenticate('slack', {
   failureMessage:'Slack login failed. Pease try to login manually. 🙏🏻'
 }))
 
+//////////////// GOOGLE LOGIN /////////////////////
 
+router.get("/google-login", passport.authenticate("google", {
+  scope: ["https://www.googleapis.com/auth/plus.login",
+          "https://www.googleapis.com/auth/plus.profile.emails.read"]
+}));
+
+router.get("/google/callback", passport.authenticate("google", {
+  successRedirect: "/private",
+  successMessage: 'Google login successful!',
+  failureRedirect: "/login",
+  failureMessage: 'Google login failed. Please try to login manually.'
+}));
 
 
 

@@ -11,6 +11,8 @@
 <nav>
   {{#if currentUser}}
     <a href="/private">Super secret page</a>
+    <a href="/rooms/add">Create a room</a>
+    <a href="/rooms">Room list</a>
     <form action="/logout" method="post">
       <button type="submit">Logout</button>
     </form>
@@ -18,6 +20,7 @@
     <a href="/signup">Signup</a>
     <a href="/login">Login</a>
     <a href="/slack-login">Login with Slack</a>
+    <a href="/google-login">Login with Google</a>
   {{/if}}
   <a href="/public">Public page</a>
 </nav>

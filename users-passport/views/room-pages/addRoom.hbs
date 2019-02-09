@@ -2,6 +2,7 @@
 
 {{!-- if in the form you want top upload any kind of files (images, music, ...) 
 you need to add enctype="multipart/form-data" --}}
+
 <form action='/create-room' method='POST' enctype='multipart/form-data'>
   <label for="">Name</label>
   <input type="text" name="name" id="">
@@ -10,7 +11,7 @@ you need to add enctype="multipart/form-data" --}}
   <textarea name="description" id="" cols="30" rows="10"></textarea>
 
   <label for="">Upload image</label>
-  <input type="file" name="imageUrl" id="">
+  <input type="file" name="imageUrl" id=""> {{!-- type="file" => when adding images or any other files --}}
 
   <button type="submit">Create room</button>
 </form>

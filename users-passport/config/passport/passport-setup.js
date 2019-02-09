@@ -3,11 +3,11 @@ const User = require('../../models/user-model');
 // require connect-flash for flash messages
 const flash = require('connect-flash');
 
-//////////////////////////////////////////
+/////// REQUIRE ALL THE STRATEGIES ////////////
 require('./local-strategy');
 require('./slack-strategy');
 require('./google-strategy');
-//////////////////////////////////////////
+///////////////////////////////////////////////
 
 // serializeUser => what to be saved in the session
                            // cb stands for callback

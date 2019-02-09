@@ -4,7 +4,11 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   email: String,
   password: String,
-  fullName: String
+  fullName: String,
+  // slack:
+  slackID: String,
+  // google
+  googleID: String
 }, {
   timestamps: true
 });

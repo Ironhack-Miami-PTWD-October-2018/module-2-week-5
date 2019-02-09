@@ -9,16 +9,10 @@ const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
 
-// require connect-flash for flash messages
-const flash = require('connect-flash');
-
 const session = require('express-session');
 
-// import passport:
-const passport = require('passport');
-
 // import passport docs from config folder
-require('./config/passport-setup');
+const passportSetup =  require('./config/passport/passport-setup');
 
 mongoose
   .connect('mongodb://localhost/users-passport', {useNewUrlParser: true})
@@ -68,23 +62,8 @@ app.use(session({
   saveUninitialized: true
 }));
 
-// passport super power is here:
-app.use(passport.initialize()); // <== 'fires' the passport package
-app.use(passport.session()); // <== connects passport to the session
-
-
-// to activate flash messages:
-app.use(flash());
-
-
-app.use((req, res, next) => {
-  res.locals.messages = req.flash();
-  if(req.user){
-    res.locals.currentUser = req.user; // <== make currentUser variable available in all hbs whenever we have user in the session
-  }
-  next();
-})
-
+// 🎯🎯🎯 MUST come after the session: 🎯🎯🎯
+passportSetup(app);
 
 
 // ROUTES MIDDLEWARE:

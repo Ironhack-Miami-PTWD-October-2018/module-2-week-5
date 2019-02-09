@@ -78,6 +78,19 @@ router.post('/logout', (req, res, next) => {
   res.redirect('/login');
 })
 
+//////////////// SLACK LOGIN /////////////////////
+router.get('/slack-login', passport.authenticate('slack'));
+
+//   callbackURL: '/slack/callback' => from 'slack-strategy.js'
+router.get('/slack/callback', passport.authenticate('slack', {
+  successReturnToOrRedirect:'/private',
+  successFlash:'Slack login successful!',
+  failureRedirect:'/login',
+  failureMessage:'Slack login failed. Pease try to login manually. 🙏🏻'
+}))
+
+
+
 
 
 module.exports = router;

@@ -44,10 +44,11 @@ router.get('/rooms', isLoggedIn, (req, res, next) => {
       // if owner (the id of the user who created a room) is the same as the currently logged in user
       // then create additional property in the oneRoom object (maybe isOwner is not the best one but ... 🤯)
       // and that will help you to allow that currently logged in user can edit and delete only the rooms they created
-
-      if(oneRoom.owner.equals(req.user._id)){
-        oneRoom.isOwner = true;
-      }
+ 
+        if(oneRoom.owner.equals(req.user._id)){
+          oneRoom.isOwner = true;
+        }
+    
     })
     res.render('room-pages/room-list', { roomsFromDB })
   })

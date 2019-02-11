@@ -97,7 +97,7 @@ const reviewSchema = new Schema({
 Now we can go ahead and update `reviews` property in the *roomSchema*:
 ```js
 ...
-  reviews: [{ type: Schema.Types.ObjectId, ref: 'Celebrity' } ]
+  reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' } ]
 ...
 ```
 Our users can:

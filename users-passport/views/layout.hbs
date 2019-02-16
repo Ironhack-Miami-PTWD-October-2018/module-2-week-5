@@ -10,13 +10,14 @@
 <body>
 <nav>
   {{#if currentUser}}
+    <a href="/rooms">Room list</a>
     <a href="/private">Super secret page</a>
     <a href="/rooms/add">Create a room</a>
-    <a href="/rooms">Room list</a>
     <form action="/logout" method="post">
       <button type="submit">Logout</button>
     </form>
     {{else}}
+    <a href="/rooms">Room list</a>
     <a href="/signup">Signup</a>
     <a href="/login">Login</a>
     <a href="/slack-login">Login with Slack</a>

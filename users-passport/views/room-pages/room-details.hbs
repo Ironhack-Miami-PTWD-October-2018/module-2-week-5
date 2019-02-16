@@ -1,0 +1,53 @@
+<h1>Welcome to the details page of the {{ room.name }}</h1>
+<p>This room is posted by: <b> {{ room.owner.fullName }} </b></p>
+<hr>
+<h3>Description:</h3>
+<p> {{ room.description }}</p>
+<hr>
+<h3>Gallery:</h3>
+<img src="{{room.imageUrl}}" alt="" width="300">
+
+{{#if room.isOwner}}
+  <button id="toggle-button">Update room details</button>
+
+  <form action="/rooms/{{room._id}}/update" method="post" id="edit-form" hidden="true" 
+  enctype='multipart/form-data'> {{!-- 🚀 enctype needs to be here if there is anything type="file" in the form --}}
+    <label for="">Name</label>
+    <input type="text" name="name" id="" value="{{room.name}}">
+
+    <label for="">Description</label>
+    <textarea name="description" id="" cols="30" rows="10"> {{room.description}} </textarea>
+
+    <img src="{{room.imageUrl}}" alt="" width="200">
+    <label for="">Upload new image</label>
+    <input type="file" name="imageUrl" id=""> {{!-- type="file" => when adding images or any other files --}}
+
+    <button type="submit">Save changes</button>
+  </form>
+{{/if}}
+
+<hr>
+{{!-- USER CAN NOT LEAVE REVIEWS ON THEIR OWN PROPERTIES --}}
+{{!-- this means that only if the user IS NOT the owner, this form will be shown --}}
+{{#unless room.isOwner}}
+  <h2>Add a review:</h2>
+  <form action="/rooms/{{room._id}}/add-review" method="POST">
+    <textarea name="comment" id="" cols="10" rows="5"></textarea>
+    <button type="submit">Add</button>
+  </form>
+{{/unless}}
+
+
+{{!-- if there are reviews, show them, if not, forget about it 🙃 --}}
+{{#if room.reviews}}
+  <h3>Reviews:</h3>
+  {{#each room.reviews}}
+    <p> <b>{{ this.user.fullName }} said: </b> {{ this.comment }}  </p>
+    {{#if this.canBeChanged}}
+      <a href="/reviews/{{this._id}}">Edit</a>
+      <form action="/reviews/{{this._id}}" method="POST">
+        <button type="submit"> Delete </button>
+      </form>
+    {{/if}}
+  {{/each}}
+{{/if}}

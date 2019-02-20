@@ -21,7 +21,7 @@ git push origin master
 ```
 - Create Pull Request so your TAs can check up your work. -->
 
-## Introductions
+## Instructions
 
 The app needs to have users (signup, login, logout functionality) and full CRUD on at least one of the models, but that one model can't be just users (you can have CRUD on users as well, but that can't be the only one). So let's summarize the requirements:
 - **Models**: user, room, reviews
